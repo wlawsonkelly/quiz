@@ -1,0 +1,13 @@
+/* Elements */
+
+ul{
+    list-style-type: none;
+}
+
+/* classes */
+
+/* ids */
+#quiz-row{
+    visibility: hidden;
+    background-color: blueviolet;
+}
