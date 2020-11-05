@@ -63,31 +63,39 @@ quizListEl.addEventListener("click", function(event){
         if (currentQuestion === 1) {
             console.log("q1");
             if (event.target.id === "0") {
+                //Make the button green can't see it casue it's too fast
+                event.target.setAttribute("style", "background-color: green;");
                 numberCorrect++;
                 console.log(numberCorrect);
                 goToQestion2();
             } else {
+                //make background red can't see it casue it's too fast and - 10 seconds
+                event.target.setAttribute("style", "background-color: red;")
                 seconds = seconds - 10;
                 goToQestion2();
             }
         } else if (currentQuestion === 2) {
             console.log("q2");
             if (event.target.id === "2") {
+                event.target.setAttribute("style", "background-color: green;")
                 numberCorrect++;
                 goToQestion3();
                 console.log(numberCorrect);
             } else {
+                event.target.setAttribute("style", "background-color: red;")
                 seconds = seconds - 10;
                 goToQestion3();
             }
         } else if (currentQuestion === 3) {
             console.log("q3");
             if (event.target.id === "0") {
+                event.target.setAttribute("style", "background-color: green;")
                 numberCorrect++;
                 console.log(numberCorrect);
                 stopTimer()
                 goToScorePage();
             } else {
+                event.target.setAttribute("style", "background-color: red;")
                 stopTimer()
                 goToScorePage();
             }
@@ -183,6 +191,7 @@ function submitScore(initials) {
     }
     //Reset score and reset the quiz elements to start
     numberCorrect = 0;
+    currentQuestion = 1;
     startButtonEl.setAttribute("style", "visibility: visible;");
     quizRowEl.setAttribute("style", "visibility: hidden;");
     
