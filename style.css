@@ -9,5 +9,5 @@ ul{
 /* ids */
 #quiz-row{
     visibility: hidden;
-    background-color: blueviolet;
+    background-color: rgb(230, 230, 230);
 }
