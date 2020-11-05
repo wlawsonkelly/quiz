@@ -6,7 +6,7 @@ var activeDiv = document.querySelector("#active-div");
 
 var highScoreEl = document.querySelector("#high-score");
 
-var questionArray = [{title: "Which state is NYC in", choices: ["NY", "CA", "NH"], answer: "NY"}, {title: "What color is the ocean", choices: ["green", "red", "blue"], answer: "blue"}, {title: "How many time zones are in Russia?", choices: ["11", "6", "9"], answer: "11"}];
+var questionArray = [{title: "Which state is NYC in", choices: ["NY", "CA", "NH"]}, {title: "What color is the ocean", choices: ["green", "red", "blue"]}, {title: "How many time zones are in Russia?", choices: ["11", "6", "9"]}];
 var seconds = 50;
 
 var numberCorrect = 0;
@@ -14,8 +14,11 @@ var numberCorrect = 0;
 var currentQuestion = 1;
 
 var yourInitials = "";
+// empty timer var
+var timerFunc;
 
 gethighScore();
+
 
 function gethighScore() {
     var highScore = localStorage.getItem("score");
@@ -23,6 +26,7 @@ function gethighScore() {
 }
 
 startButtonEl.addEventListener("click", function(event) {
+    
     event.target.setAttribute("style", "visibility: hidden;");
     console.log("clicked");
     quizRowEl.setAttribute("style", "visibility: visible;");
@@ -36,9 +40,9 @@ startButtonEl.addEventListener("click", function(event) {
      choiceEl.append(buttonEl);
      quizListEl.append(choiceEl);
     }
-
+    seconds = 50;
+    timeSpanEl.setAttribute("style", "visibility: visible;");
     startTimer();
-    // If statement to match choice index selected . text with answer
 });
 
 quizListEl.addEventListener("click", function(event){
@@ -70,10 +74,10 @@ quizListEl.addEventListener("click", function(event){
             if (event.target.id === "0") {
                 numberCorrect++;
                 console.log(numberCorrect);
-                seconds = 0;
+                stopTimer()
                 goToScorePage();
             } else {
-                seconds = 0;
+                stopTimer()
                 goToScorePage();
             }
         }
@@ -81,7 +85,7 @@ quizListEl.addEventListener("click", function(event){
 });
 
 function startTimer() {
-    var timerInterval = setInterval(function() {
+timerFunc = setInterval(function() {
      seconds--;
       timeSpanEl.textContent = seconds;
   
@@ -90,9 +94,11 @@ function startTimer() {
         goToScorePage();
       }
     }, 1000);
-  }
-
-//Need a stop timer function
+}
+function stopTimer() {
+    clearInterval(timerFunc);
+}
+//Found the above code via stack overflow
 
 function goToQestion2() {
     quizListEl.innerHTML = "";
@@ -157,14 +163,17 @@ function submitScore(initials) {
         alert("Your score was lower than your high score");
         startButtonEl.setAttribute("style", "visibility: visible;");
         quizRowEl.setAttribute("style", "visibility: hidden;");
-        return
+        
     } else {
+        alert("Your score has been saved");
         localStorage.setItem("score", numberCorrect);
     }
-
-    alert("Your score has been saved");
     numberCorrect = 0;
     startButtonEl.setAttribute("style", "visibility: visible;");
     quizRowEl.setAttribute("style", "visibility: hidden;");
+    
+    //REMOVING INPUT AND SUBMNIT BUTTON FOR RESTART
+    activeDiv.removeChild(activeDiv.lastChild);
+    activeDiv.removeChild(activeDiv.lastChild);
 }
 
