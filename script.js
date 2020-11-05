@@ -70,8 +70,10 @@ quizListEl.addEventListener("click", function(event){
             if (event.target.id === "0") {
                 numberCorrect++;
                 console.log(numberCorrect);
+                seconds = 0;
                 goToScorePage();
             } else {
+                seconds = 0;
                 goToScorePage();
             }
         }
@@ -89,6 +91,8 @@ function startTimer() {
       }
     }, 1000);
   }
+
+//Need a stop timer function
 
 function goToQestion2() {
     quizListEl.innerHTML = "";
@@ -126,18 +130,19 @@ function goToQestion3() {
 
 
 function goToScorePage() {
-    alert("Here is your score");
+    alert("Here is your score: " + numberCorrect);
     quizListEl.innerHTML = "";
+
     var initialInput = document.createElement("input");
     initialInput.setAttribute("type", "text");
     activeDiv.append(initialInput);
-
+    initialInput.placeholder = "Put Initials Here";
     var submitButton = document.createElement("button");
 
     activeDiv.append(submitButton);
-
+    submitButton.textContent = "Submit Score";
     submitButton.addEventListener("click", function(event) {
-        submitScore(initialInput.textContent);
+        submitScore(initialInput.value);
     })
 
 }
@@ -145,15 +150,20 @@ function goToScorePage() {
 function submitScore(initials) {
     localStorage.setItem("initials", initials);
     //Need to get highscore before setting it
+    console.log(initials);
     var highestScore = parseInt(localStorage.getItem("score"));
 
     if (highestScore > numberCorrect) {
+        alert("Your score was lower than your high score");
+        startButtonEl.setAttribute("style", "visibility: visible;");
+        quizRowEl.setAttribute("style", "visibility: hidden;");
         return
     } else {
         localStorage.setItem("score", numberCorrect);
     }
 
     alert("Your score has been saved");
+    numberCorrect = 0;
     startButtonEl.setAttribute("style", "visibility: visible;");
     quizRowEl.setAttribute("style", "visibility: hidden;");
 }
