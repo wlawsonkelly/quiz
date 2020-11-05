@@ -82,20 +82,20 @@ quizListEl.addEventListener("click", function(event){
                 goToQestion3();
                 console.log(numberCorrect);
             } else {
-                event.target.setAttribute("style", "background-color: red;")
+                event.target.setAttribute("style:active", "background-color: red;")
                 seconds = seconds - 10;
                 goToQestion3();
             }
         } else if (currentQuestion === 3) {
             console.log("q3");
             if (event.target.id === "0") {
-                event.target.setAttribute("style", "background-color: green;")
+                event.target.setAttribute("style:active", "background-color: green;")
                 numberCorrect++;
                 console.log(numberCorrect);
                 stopTimer()
                 goToScorePage();
             } else {
-                event.target.setAttribute("style", "background-color: red;")
+                event.target.setAttribute("style:active", "background-color: red;")
                 stopTimer()
                 goToScorePage();
             }
