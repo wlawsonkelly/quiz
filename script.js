@@ -187,6 +187,7 @@ function submitScore(initials) {
     } else {
         // WE HAVE A HIGH SCORE and need to save it
         alert("Your high score has been saved");
+        highScoreEl.textContent = numberCorrect;
         localStorage.setItem("score", numberCorrect);
     }
     //Reset score and reset the quiz elements to start
